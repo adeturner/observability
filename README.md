@@ -21,7 +21,7 @@ observability.Logger("Info", fmt.Sprintf("a=%v\n", a))
 
 ```go
 t1 := observability.Timer{}
-t1.Start(extendedTiming, fmt.Sprintf("%s:1 loadImageFromFile=%s", e.corrID, path))
+t1.Start(extendedTiming, fmt.Sprintf("loadImageFromFile=%s", path))
 // do stuff
 t1.EndAndPrintStderr(extendedTiming)
 ```
