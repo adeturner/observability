@@ -2,12 +2,16 @@
 
 ## Logging
 
-"Exit" - Exits
-"Fatal" - Panics
-"Debug"
-"Info"
-"Warn"
-"Error"
+### Options
+
+- "Exit" - Exits
+- "Fatal" - Panics
+- "Debug"
+- "Info"
+- "Warn"
+- "Error"
+
+### Usage
 
 ```go
 observability.Logger("Info", fmt.Sprintf("a=%v\n", a))
