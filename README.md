@@ -33,7 +33,7 @@ t1.Start(timingOn, fmt.Sprintf("loadImageFromFile=%s", path))
 t1.EndAndPrintStderr(timingOn)
 ```
 
-## log memory consumption
+## Write memory consumption to log output
 
 ```go
 observability.LogMemory("Info")
