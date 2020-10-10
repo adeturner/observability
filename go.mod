@@ -1,4 +1,4 @@
-module observability
+module github.com/adeturner/observability
 
 go 1.15
 
