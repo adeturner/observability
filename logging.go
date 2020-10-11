@@ -37,8 +37,8 @@ func log(errorType string, logString string, n int) {
 	fmt.Println(fmt.Sprintf("0 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
 
 	if loggingOn == "" {
-		loggingOn := os.Getenv("LOG_ENABLED")
-		loggingLevel := os.Getenv("LOG_LEVEL")
+		loggingOn = os.Getenv("LOG_ENABLED")
+		loggingLevel = os.Getenv("LOG_LEVEL")
 
 		fmt.Println(fmt.Sprintf("1 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
 
