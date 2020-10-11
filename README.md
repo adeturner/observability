@@ -1,8 +1,41 @@
 # Observability
 
+## Usage
+
+### Set via Command line options
+
+```txt
+
+import (
+    "flag"
+)
+
+usage: goexecuteable -stderrthreshold=[INFO|WARN|FATAL] -log_dir=[string]
+```
+
+### Set in code
+
+```go
+
+import (
+    "flag"
+)
+
+flag.PrintDefaults()
+flag.Set("logtostderr", true)
+flag.Set("stderrthreshold", "INFO")  //  INFO|WARN|FATAL logs at or above this threshold go to stderr
+flag.Parse()
+
+// others...
+flag.Set("alsologtostderr", false)
+flag.Set("v", "log level for V logs")
+flag.Set("vmodule", "comma-separated list of pattern=N settings for file-filtered logging")
+flag.Set("log_backtrace_at", "when logging hits line file:N, emit a stack trace")
+```
+
 ## Logging
 
-### Options
+### Code level logging Options
 
 - "Exit" - Exits
 - "Fatal" - Panics
@@ -11,7 +44,7 @@
 - "Warn"
 - "Error"
 
-### Usage
+### Logging Usage
 
 ```go
 observability.Logger("Info", fmt.Sprintf("a=%v\n", a))

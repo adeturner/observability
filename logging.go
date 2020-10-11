@@ -8,7 +8,7 @@ import (
 	"github.com/golang/glog"
 )
 
-const cAppName = "Steve"
+const cAppName = ""
 
 // GetLogHdr function
 func GetLogHdr() string {
@@ -43,10 +43,10 @@ func log(errorType string, logString string, n int) {
 	} else if errorType == "Fatal" {
 		glog.Fatalf("%s %s\t%s", GetLogHdr(), caller.get(n), logString)
 	} else if errorType == "Debug" {
-		// glog.Infof("%s %s\t%s", GetLogHdr(), caller.get(n), logString)
+		glog.Infof("%s %s\t%s", GetLogHdr(), caller.get(n), logString)
 		fmt.Fprintf(os.Stdout, "%s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
 	} else if errorType == "Info" {
-		// glog.Infof("%s %s\t%s", GetLogHdr(), caller.get(n), logString)
+		glog.Infof("%s %s\t%s", GetLogHdr(), caller.get(n), logString)
 		fmt.Fprintf(os.Stdout, "%s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
 	} else if errorType == "Warn" {
 		glog.Warningf("%s %s\t%s", GetLogHdr(), caller.get(n), logString)
