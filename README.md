@@ -20,7 +20,10 @@ export LOG_LEVEL=INFO
 - "Error"
 
 ```go
+
+observability.SetAppName("myapp")
 observability.Logger("Info", "my string"))
+
 ```
 
 ## Timing

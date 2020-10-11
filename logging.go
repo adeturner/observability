@@ -6,14 +6,20 @@ import (
 	"time"
 )
 
-const cAppName = ""
-
+var appName string
 var loggingOn, loggingLevel string
 
-// GetLogHdr function
-func GetLogHdr() string {
-	return "[" + cAppName + "] "
-	//return ""
+// SetAppName -
+func SetAppName(s string) {
+	appName = s
+}
+
+// getLogHdr function
+func getLogHdr() string {
+	if appName != "" {
+		return "[" + appName + "] "
+	}
+	return ""
 }
 
 // LogMemory prints memory usage to the trace
@@ -34,8 +40,6 @@ func logN(errorType string, logString string, n int) {
 // Log wraps glog
 func log(errorType string, logString string, n int) {
 
-	fmt.Println(fmt.Sprintf("0 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
-
 	if loggingOn == "" {
 		loggingOn = os.Getenv("LOG_ENABLED")
 		loggingLevel = os.Getenv("LOG_LEVEL")
@@ -52,27 +56,25 @@ func log(errorType string, logString string, n int) {
 
 	if loggingOn == "true" {
 
-		fmt.Println(fmt.Sprintf("2 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
-
 		caller := Caller{}
 		t := time.Now()
 
 		if errorType == "Exit" {
-			fmt.Fprintf(os.Stdout, "Q %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "Q %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
 			os.Exit(0)
 		} else if errorType == "Fatal" {
-			fmt.Fprintf(os.Stdout, "F %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "F %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
 			os.Exit(3)
 		} else if errorType == "Debug" && loggingLevel == "DEBUG" {
-			fmt.Fprintf(os.Stdout, "D %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "D %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
 		} else if errorType == "Info" && (loggingLevel == "INFO" || loggingLevel == "DEBUG") {
-			fmt.Fprintf(os.Stdout, "I %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "I %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
 		} else if errorType == "Warn" && (loggingLevel == "WARN" || loggingLevel == "INFO" || loggingLevel == "DEBUG") {
-			fmt.Fprintf(os.Stdout, "W %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "W %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
 		} else if errorType == "Error" && (loggingLevel == "ERROR" || loggingLevel == "WARN" || loggingLevel == "INFO" || loggingLevel == "DEBUG") {
-			fmt.Fprintf(os.Stdout, "E %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "E %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
 		} else if errorType == "" {
-			fmt.Fprintf(os.Stdout, "? %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), GetLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "? %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
 		}
 	}
 
