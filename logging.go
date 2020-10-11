@@ -35,7 +35,6 @@ func logN(errorType string, logString string, n int) {
 func log(errorType string, logString string, n int) {
 
 	caller := Caller{}
-
 	t := time.Now()
 
 	if errorType == "Exit" {
