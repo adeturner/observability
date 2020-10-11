@@ -37,6 +37,12 @@ func logN(errorType string, logString string, n int) {
 	log(errorType, logString, n)
 }
 
+func LogEnvVars() {
+	for _, pair := range os.Environ() {
+		log("Info", pair, 3)
+	}
+}
+
 // Log wraps glog
 func log(errorType string, logString string, n int) {
 
@@ -44,13 +50,11 @@ func log(errorType string, logString string, n int) {
 		loggingOn = os.Getenv("LOG_ENABLED")
 		loggingLevel = os.Getenv("LOG_LEVEL")
 
-		fmt.Println(fmt.Sprintf("1 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
-
 		if loggingOn == "" {
 			loggingOn = "true"
 		}
 		if loggingLevel == "" {
-			loggingLevel = "INFO"
+			loggingLevel = "DEBUG"
 		}
 	}
 
