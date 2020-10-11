@@ -34,19 +34,25 @@ func logN(errorType string, logString string, n int) {
 // Log wraps glog
 func log(errorType string, logString string, n int) {
 
+	fmt.Println(fmt.Sprintf("0 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
+
 	if loggingOn == "" {
 		loggingOn := os.Getenv("LOG_ENABLED")
 		loggingLevel := os.Getenv("LOG_LEVEL")
+
+		fmt.Println(fmt.Sprintf("1 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
 
 		if loggingOn == "" {
 			loggingOn = "true"
 		}
 		if loggingLevel == "" {
-			loggingLevel = "Info"
+			loggingLevel = "INFO"
 		}
 	}
 
 	if loggingOn == "true" {
+
+		fmt.Println(fmt.Sprintf("2 loggingLevel=%s loggingOn=%s", loggingLevel, loggingOn))
 
 		caller := Caller{}
 		t := time.Now()
