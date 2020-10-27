@@ -21,10 +21,10 @@ func (caller *Caller) get(n int) string {
 	reStr := ".*/"
 	re := regexp.MustCompile(reStr)
 	fn = re.ReplaceAllLiteralString(fn, "")
-	str := fmt.Sprintf("%s:%d", fn, line)
 	if len(fn) > 12 {
 		fn = fn[:12]
 	}
+	str := fmt.Sprintf("%s:%d", fn, line)
 	return str
 }
 

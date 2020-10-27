@@ -88,14 +88,14 @@ func log(errorType string, logString string, n int) {
 		t := time.Now()
 
 		// In a single-threaded process, the thread ID is equal to the process ID
-		p := fmt.Sprintf("[%d:%d]", syscall.Getpid(), syscall.Gettid())
+		p := fmt.Sprintf("%d:%d", syscall.Getpid(), syscall.Gettid())
 		proc := p
 		if corrId != "" {
 			proc = fmt.Sprintf("%s %s", p, corrId)
 		}
 
 		// format message
-		msg := fmt.Sprintf("%s %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), proc, getLogHdr(), caller.get(n), logString)
+		msg := fmt.Sprintf("[%s] %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), proc, getLogHdr(), caller.get(n), logString)
 
 		if errorType == "Exit" {
 			fmt.Fprintf(os.Stdout, "Q %s", msg)
