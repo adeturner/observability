@@ -95,7 +95,7 @@ func log(errorType string, logString string, n int) {
 		}
 
 		// format message
-		msg := fmt.Sprintf("[%s] %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), proc, getLogHdr(), caller.get(n), logString)
+		msg := fmt.Sprintf("%s [%s] %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), proc, getLogHdr(), caller.get(n), logString)
 
 		if errorType == "Exit" {
 			fmt.Fprintf(os.Stdout, "Q %s", msg)
