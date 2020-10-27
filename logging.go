@@ -19,7 +19,12 @@ func SetAppName(s string) {
 }
 
 // SetCorrId -
-func SetCorrId() {
+func SetCorrId(s string) {
+	corrId = s
+}
+
+// GenCorrId -
+func GenCorrId() {
 	corrId = uuid.New().String()
 }
 
