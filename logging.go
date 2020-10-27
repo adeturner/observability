@@ -3,6 +3,7 @@ package observability
 import (
 	"fmt"
 	"os"
+	"syscall"
 	"time"
 )
 
@@ -63,22 +64,25 @@ func log(errorType string, logString string, n int) {
 		caller := Caller{}
 		t := time.Now()
 
+		proc := fmt.Sprintf("[%5d:%8d]", syscall.Getpid(), syscall.Gettid())
+		msg := fmt.Sprintf("%s %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), proc, getLogHdr(), caller.get(n), logString)
+
 		if errorType == "Exit" {
-			fmt.Fprintf(os.Stdout, "Q %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "Q %s", msg)
 			os.Exit(0)
 		} else if errorType == "Fatal" {
-			fmt.Fprintf(os.Stdout, "F %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "F %s", msg)
 			os.Exit(3)
 		} else if errorType == "Debug" && loggingLevel == "DEBUG" {
-			fmt.Fprintf(os.Stdout, "D %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "D %s", msg)
 		} else if errorType == "Info" && (loggingLevel == "INFO" || loggingLevel == "DEBUG") {
-			fmt.Fprintf(os.Stdout, "I %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "I %s", msg)
 		} else if errorType == "Warn" && (loggingLevel == "WARN" || loggingLevel == "INFO" || loggingLevel == "DEBUG") {
-			fmt.Fprintf(os.Stdout, "W %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "W %s", msg)
 		} else if errorType == "Error" && (loggingLevel == "ERROR" || loggingLevel == "WARN" || loggingLevel == "INFO" || loggingLevel == "DEBUG") {
-			fmt.Fprintf(os.Stdout, "E %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "E %s", msg)
 		} else if errorType == "" {
-			fmt.Fprintf(os.Stdout, "? %s %s %s\t%s\n", t.Format("2006-01-02 15:04:05.0000"), getLogHdr(), caller.get(n), logString)
+			fmt.Fprintf(os.Stdout, "? %s", msg)
 		}
 	}
 
