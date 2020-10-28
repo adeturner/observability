@@ -15,7 +15,7 @@ func getMemUsageStr() string {
 	str = str + fmt.Sprintf("MEMORY Alloc = %v MiB", bToMb(m.Alloc))
 	str = str + fmt.Sprintf("\tTotalAlloc = %v MiB", bToMb(m.TotalAlloc))
 	str = str + fmt.Sprintf("\tSys = %v MiB", bToMb(m.Sys))
-	str = str + fmt.Sprintf("\tNumGC = %v\n", m.NumGC)
+	str = str + fmt.Sprintf("\tNumGC = %v", m.NumGC)
 	return str
 }
 
