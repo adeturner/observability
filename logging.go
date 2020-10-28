@@ -5,37 +5,14 @@ import (
 	"os"
 	"syscall"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 var appName string
-var corrId string
 var loggingOn, loggingLevel string
 
 // SetAppName -
 func SetAppName(s string) {
 	appName = s
-}
-
-// SetCorrId -
-func SetCorrId(s string) {
-	corrId = s
-}
-
-// GenCorrId -
-func GenCorrId() {
-	corrId = uuid.New().String()
-}
-
-// ClearCorrId -
-func ClearCorrId() {
-	corrId = ""
-}
-
-// GetCorrId -
-func GetCorrId() string {
-	return corrId
 }
 
 // getLogHdr function
